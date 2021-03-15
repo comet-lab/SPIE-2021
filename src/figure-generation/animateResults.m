@@ -98,11 +98,12 @@ set(gca,'FontSize',12);
 
 % Wrist Scatter Plot
 subplot(2,3,6);
-wrist = scatter3(qList(4,1), qList(5,1), qList(6,1), 'filled');
-hold on
+% wrist = scatter3(qList(4,1), qList(5,1), qList(6,1), 'filled');
+wrist = scatter(qList(5,1), qList(6,1), 'filled');
+hold on; grid on;
 % xlabel('Tendon Displacement (delta L) [m]');
-ylabel('Rotation (Phi) [rad]');
-zlabel('Advancement (Tau) [m]');
+xlabel('Rotation (Phi) [rad]');
+ylabel('Advancement (Tau) [m]');
 % title('Wrist Scatterplot');
 set(gca,'FontSize',12);
 
@@ -160,9 +161,9 @@ while true
     endo.SizeData = [36 * ones(1,ii-1), 100];
     
     % Wrist (Tau, Phi, Delta L)
-    wrist.XData = qList(4,1:ii);
-    wrist.YData = qList(5,1:ii);
-    wrist.ZData = qList(6,1:ii);
+%     wrist.XData = qList(4,1:ii);
+    wrist.XData = qList(5,1:ii);
+    wrist.YData = qList(6,1:ii);
 %     wrist.CData = [repmat([0 0.4470 0.7410], ii-1, 1); 1 0 0];
     wrist.SizeData = [36 * ones(1,ii-1), 100];
     

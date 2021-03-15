@@ -14,13 +14,16 @@ addpath('kinematics', 'utils', 'figure-generation', 'path-planning', ...
         'utils/stlTools/', 'utils/visibility/', 'utils/ray-casting/', '../anatomical-models');
 
 %% Constants for the simulations
+
 % Anatomical model definition
+% choose either 'larynx1' or 'larynx2_c2'
 modelID = 'larynx1';  % ID of the anatomical model (see the `anatomical-models' folder)
 
+
 % Simulation parameters
-nPoints = 100; % number of configurations sampled by RRT
+nPoints = 10; % number of configurations sampled by RRT
 dq = 0.06;    % step size for rrt
-laserOffsetAngle = 90;
+laserOffsetAngle = 0;
 useWrist = true;
 
 % Endoscope geometry definition

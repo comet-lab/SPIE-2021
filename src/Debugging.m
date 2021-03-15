@@ -1,11 +1,11 @@
 %% Script to test the kinematics of the the Endoscope
-% clc, clear all
+clc, clear all
 % addpath('kinematics')
 % addpath('path-planning')
 % addpath('utils')
 
 %% Load in Simulation and STL
-simulationID = 'larynx1-TEST--Laser_ang-90-dq-0.06-100pts.mat';
+simulationID = 'larynx2_c2-TEST--nowrist-dq-0.06-10000pts_12-10.mat';
 load(simulationID);
 
 % load in cropped version of stl mesh
@@ -17,10 +17,10 @@ earModel.faces = faces;
 
 %% Fwkin for specific index
 
-idx = 470;
-lim = 75;
+idx = 117;
+lim = 109;
 
-laserAng = deg2rad(90);           % convert laser into degrees
+laserAng = deg2rad(laserOffsetAngle);           % convert laser into degrees
 laserVec = [sin(laserAng) 0 cos(laserAng) 0]';  % unit vector of laser direction (0 at end so that it can be transformed)
 
 total_visibility = [];
@@ -64,12 +64,12 @@ h3 = surf(robotPhysicalModel.surface.Xe, ...
     'FaceColor','red');
 
 % tip position plot
-scatter3(pList(1,lim), pList(2,lim), pList(3,lim), 'filled', 'red');
+% scatter3(pList(1,lim), pList(2,lim), pList(3,lim), 'filled', 'red');
 
 vp = quiver.vp * 1e-3;
 rays = quiver.dispR * 1e-3;
 q1 = quiver3(vp(1,:), vp(2,:), vp(3,:), rays(1,:), rays(2,:), rays(3,:));
-q1.Color = 'c';
+q1.Color = 'r';
     
 xlabel('X [m]');
 ylabel('Y [m]');

@@ -113,6 +113,7 @@ end
 
 %% Display Rays (can comment out)
 % displays the seen faces of the mesh with the rays pointing from viewpoint
+rayScalar(rayScalar == 0) = max(rayScalar);
 dispR = rays .* rayScalar;  % scale ray lengths by their intersection distance
 l = size(dispR,2);
 vp = repmat(viewPoint,1,l);

@@ -87,7 +87,7 @@ for i = 1:length(simIDs)
     
     % plot simulation
     figure('Name', simIDs(i))
-    h = stlPlot(meMesh.Vertices * 1e3, meMesh.Faces, simIDs(i), map1, colors);
+    h = stlPlot(meMesh.vertices * 1e3, meMesh.faces, simIDs(i), map1, colors);
     set(gca,'FontSize',12);
     set(h, 'DefaultFigureRenderer', 'painters');
     
