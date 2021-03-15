@@ -99,6 +99,14 @@ for i = 1:length(simIDs)
         hl(il) = patch(NaN, NaN, unqc(il));
     end
     
+    % change view for larynx 2
+    if extractBetween(simIDs(i), 1, 7) == "larynx1"
+        view([-60 25]);
+    end
+    
+    % change z limit to remove top part of larynx 
+    zlim([-62 -15]);
+    
     l = legend(hl,label);
     set(l, 'FontSize', 11);
     set(h, 'DefaultFigureRenderer', 'painters');
