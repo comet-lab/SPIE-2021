@@ -1,0 +1,9 @@
+% LOADING DATA
+arr = load('example . mat');
+Data = arr . Data; 
+
+scaleX = 0.084;
+scaleY = 0.084;
+scaleZ = 0.03;
+
+[Vertices, Triangle, Quads] = make_STL _of _Array('example . stl',Data,scaleX,scaleY,scaleZ);  
