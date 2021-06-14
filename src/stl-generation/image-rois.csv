@@ -1,4 +1,4 @@
-Model ID,X Lower Bound,X Upper Bound,Y Lower Bound,Y Upper Bound,Voxel Size X,Voxel Size Y,Voxel Siz
+Model ID,X Lower Bound,X Upper Bound,Y Lower Bound,Y Upper Bound,Voxel Size X,Voxel Size Y,Voxel Size Z
 L1,,,,,0.045,0.045,0.045
 L2C1,,,,,0.025,0.025,0.025
 L2C2,,,,,0.025,0.025,0.025
