@@ -1,2 +1,12 @@
-﻿Model ID,X Lower Bound,X Upper Bound,Y Lower Bound,Y Upper Bound,Voxel Size X,Voxel Size Y,Voxel Size Z
-L7,450,3000,100,3000,0.013,0.013,0.013
+Model ID	X Lower Bound	X Upper Bound	Y Lower Bound	Y Upper Bound	Voxel Size X	Voxel Size Y	Voxel Size Z
+L1							
+L2C1							
+L2C2							
+L5C1					0.013	0.013	0.013
+L5C2					0.013	0.013	0.013
+L6C1					0.013	0.013	0.013
+L6C2					0.013	0.013	0.013
+L7C1	450	3000	100	3000	0.013	0.013	0.013
+L7C2					0.013	0.013	0.013
+L8C1	100	3400	100	3400	0.013	0.013	0.013
+L8C2					0.013	0.013	0.013
