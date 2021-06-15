@@ -30,7 +30,7 @@ xLB = roi.XLowerBound; xUB = roi.XUpperBound;
 yLB = roi.YLowerBound; yUB = roi.YUpperBound;
 
 % Define the sampling interval across the three axes
-dZ = 2; dY = 5; dX = 5;
+dX = roi.SamplingX; dY=roi.SamplingY; dZ=roi.SamplingZ;
 
 % Initialize the matrix where we are going to store all the images
 VocalFolds = zeros((yUB - yLB)/dY, ...
