@@ -13,13 +13,13 @@ addpath('kinematics', 'utils', 'figure-generation', 'path-planning', ...
         'utils/stlTools/', 'utils/visibility/', 'utils/ray-casting/', '../anatomical-models');
     
 %% Simulation parameters
-nPoints = 100; % number of configurations sampled by RRT
+nPoints = 1; % number of configurations sampled by RRT
 dq = 0.06;
-useWrist = true;
-laserOffsetAngle = 90;
+useWrist = false;
+laserOffsetAngle = 0;
 
 %% Anatomical model definition
-modelID = 'larynx1'; % ID of the anatomical model (see the `anatomical-models' folder)
+modelID = 'larynx7a'; % ID of the anatomical model (see the `anatomical-models' folder)
 
 otherinfo = [];
 if ~useWrist
