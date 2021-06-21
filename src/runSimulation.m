@@ -13,7 +13,7 @@ addpath('kinematics', 'utils', 'figure-generation', 'path-planning', ...
         'utils/stlTools/', 'utils/visibility/', 'utils/ray-casting/', '../anatomical-models');
     
 %% Simulation parameters
-nPoints = 1; % number of configurations sampled by RRT
+nPoints = 10; % number of configurations sampled by RRT
 dq = 0.06;
 useWrist = false;
 laserOffsetAngle = 0;
