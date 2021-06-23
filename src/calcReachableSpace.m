@@ -41,7 +41,7 @@ robot = EndoWrist(ID, OD, n, cutouts);
 
 % Read the configuration file to extract information about the meshes
 fid = fopen(fullfile('..', 'anatomical-models', 'configurations.txt'));
-text = textscan(fid, '%s %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f');
+text = textscan(fid, '%s %f %f %f %f %f %f %f %f %f %f %f %f');
 fclose(fid);
 
 configurations = cell2mat(text(2:end));
