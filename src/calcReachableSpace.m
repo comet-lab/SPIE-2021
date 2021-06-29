@@ -58,7 +58,9 @@ newZ = tip_base .* 1e-3 - entry_point .* 1e-3;
 newZ = newZ ./ norm(newZ);
 v = cross([0 0 1], newZ);
 R = eye(3) + skew(v) + skew(v)^2 * (1-dot([0 0 1], newZ))/norm(v)^2;
-R = R * [0 -1 0; 1 0 0; 0 0 1];
+R = R * [0 -1 0; 
+         1 0 0;
+         0 0 1];
 t = entry_point .* 1e-3;
 T = [R t'; 0 0 0 1];
 
