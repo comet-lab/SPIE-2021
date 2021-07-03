@@ -67,11 +67,13 @@ T = [R t'; 0 0 0 1];
 % now slide the endoscope back by its length, so that all the different
 % designs start exploring from the same point
 wrist_len_offset = sum(cutouts.u) + sum(cutouts.h); % len of wrist bend section
-endo_len_offset = 13.4e-3 + 28.2e-3;                % tip len + bend section len
+endo_len_offset = wrist_len_offset;% + 25.71e-3;                % tip len + bend section len
+%endo_len_offset = 13.4e-3 + 28.2e-3;                % tip len + bend section len
 
 Tz = eye(4);
-Tz(3,4) = -wrist_len_offset - endo_len_offset;
-Tz(3,4) = - endo_len_offset;
+%Tz(3,4) = -wrist_len_offset - endo_len_offset;
+Tz(3,4) = -endo_len_offset; %FIX IT 
+%Tz(3,4) = -wrist_len_offset; %restore previous line
 T = T * Tz;
 
 % Read the meshes from file
