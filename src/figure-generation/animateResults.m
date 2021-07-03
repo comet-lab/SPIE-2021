@@ -56,8 +56,8 @@ ax.Position = [left bottom ax_width ax_height];
 scatter3(T(1,4), T(2,4), T(3,4), 100, 'k', 'filled');
 hold on
 
-%robot.fwkine(qList(:,ii), T);                   % generate fwkin
-robot.fwkine(zeros(6,1), T); % !FIXME this is just to visualize the neutral configuration - restore the previous line
+robot.fwkine(qList(:,ii), T);                   % generate fwkin
+%robot.fwkine(zeros(6,1), T); % !FIXME this is just to visualize the neutral configuration - restore the previous line
 robotPhysicalModel = robot.makePhysicalModel(); % generate meshes
 
 % handler for mesh plots
