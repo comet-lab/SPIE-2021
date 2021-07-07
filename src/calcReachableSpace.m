@@ -61,21 +61,26 @@ R = eye(3) + skew(v) + skew(v)^2 * (1-dot([0 0 1], newZ))/norm(v)^2;
 % R = R * [0 -1 0; 
 %          1 0 0;
 %          0 0 1];
-t = tip_base .* 1e-3;
-%t = entry_point .* 1e-3;
+%t = tip_base .* 1e-3;
+t = entry_point .* 1e-3;
 T = [R t'; 0 0 0 1];
 
 % now slide the endoscope back by its length, so that all the different
 % designs start exploring from the same point
 wrist_len_offset = sum(cutouts.u) + sum(cutouts.h); % len of wrist bend section
-endo_len_offset = wrist_len_offset;% + 25.71e-3;                % tip len + bend section len
-%endo_len_offset = 13.4e-3 + 28.2e-3;                % tip len + bend section len
+% %endo_len_offset = wrist_len_offset;% + 25.71e-3;                % tip len + bend section len
+% endo_len_offset = wrist_len_offset+37.141e-3;                % tip len + bend section len
+%endo_len_offset = 13.4e-3 + 28.2e-3;% tip len + bend section len
 
 Tz = eye(4);
 %Tz(3,4) = -wrist_len_offset - endo_len_offset;
-Tz(3,4) = -endo_len_offset; %FIX IT 
+Tz(3,4) = -(robot.endo.tip_len + robot.endo.bend_sec); %-endo_len_offset; %FIX IT 
 %Tz(3,4) = -wrist_len_offset; %restore previous line
 T = T * Tz;
+
+%Just trying this
+
+% T(3,4) = -endo_len_offset;
 
 % Read the meshes from file
 pathStl = fullfile('..', 'anatomical-models', modelID, 'tissue.stl');
@@ -89,8 +94,9 @@ earModel.baseTransform = T;
 deltaQ = ones(1,6) * dq;
 
 % Define the robot's range of motion
-minAdv = 0; %-sum(cutouts.h) - sum(cutouts.u) + 3e-3; FIXME! Just an example, restore the next line.
-% minAdv = -sum(cutouts.h) - sum(cutouts.u) + 3e-3;
+%minAdv = 0; %-sum(cutouts.h) - sum(cutouts.u) + 3e-3; FIXME! Just an example, restore the next line.
+%minAdv = -sum(cutouts.h) - sum(cutouts.u) + 3e-3;
+minAdv = -sum(cutouts.h) - sum(cutouts.u);
 maxBend = 0.025; % [1/m]
 maxKappa= 1/maxBend;
 maxTheta= deg2rad(100); % [rad]
