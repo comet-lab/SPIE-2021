@@ -4,7 +4,7 @@
 % Select the larynx model you want to visualize acording with the folder
 % name.
 
-clear all; close all; clc;
+clear all; clc;
 
 modelID = 'larynx8b';
 
@@ -25,12 +25,14 @@ Stl2 = fullfile('..', '..', 'anatomical-models', modelID, file2);
 
 %% Plot the STL files 
 
-% Plot the larynx for calcReachableSpace function 
-figure
-stlPlot(V1,F1,Name1,p(2,:));
-title(upper(file1(1:6)));
+% % Plot the larynx for calcReachableSpace function 
+% figure
+% stlPlot(V1,F1,Name1,p(2,:));
+% title(modelID)
+% %title(upper(file1(1:6)));
 
 % Plot the larynx model for calcVisibleArea function
 figure
 stlPlot(V2,F2,Name2,p(2,:));
-title('TISSUE CROPPED');
+title(modelID)
+%title('TISSUE CROPPED');
