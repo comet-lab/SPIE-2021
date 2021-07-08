@@ -183,6 +183,7 @@ while true
        end
     end
     
+    jj = jj + 1;
     % If no collision, add this point to the tree
     qListNormalized(:,jj) = qNewNorm;
     
@@ -193,7 +194,7 @@ while true
     xList(:,jj) = T(1:3,1,end);
     TList(:,:,jj) = T(:,:,end);
     
-    jj = jj + 1;
+    % jj = jj + 1; RESTORE THIS LINE
     
     nColl = 0;
     

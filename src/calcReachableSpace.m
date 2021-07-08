@@ -95,8 +95,8 @@ deltaQ = ones(1,6) * dq;
 
 % Define the robot's range of motion
 %minAdv = 0; %-sum(cutouts.h) - sum(cutouts.u) + 3e-3; FIXME! Just an example, restore the next line.
-%minAdv = -sum(cutouts.h) - sum(cutouts.u) + 3e-3;
-minAdv = -sum(cutouts.h) - sum(cutouts.u);
+minAdv = -sum(cutouts.h) - sum(cutouts.u) + 3e-3;
+%minAdv = -sum(cutouts.h) - sum(cutouts.u);
 maxBend = 0.025; % [1/m]
 maxKappa= 1/maxBend;
 maxTheta= deg2rad(100); % [rad]
