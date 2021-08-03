@@ -74,6 +74,8 @@ ylabel('Y [m]');
 zlabel('Z [m]');
 title('3D Model in STL')
 set(gca,'FontSize',12);
+view(-1.4649, 83.9079); %!FIXME - needed for visual debugging of the starting configuration - remove once done
+
 
 % this sets the limits of the axis. When plotting quiver, if not hard
 % defined, it likes to change the limits based on the plots so the figure

@@ -10,16 +10,17 @@
 % Last Version: 5/29/2020
 close all, clear, clc
 addpath('kinematics', 'utils', 'figure-generation', 'path-planning', ...
-        'utils/stlTools/', 'utils/visibility/', 'utils/ray-casting/', '../anatomical-models');
+        'utils/stlTools/', 'utils/visibility/', 'utils/ray-casting/', ...
+        'utils/wrist_configs/', '../anatomical-models', 'simAnalyzer/');
     
 %% Simulation parameters
-nPoints = 10; % number of configurations sampled by RRT
+nPoints = 100; % number of configurations sampled by RRT
 dq = 0.06;
 useWrist = false;
 laserOffsetAngle = 0;
 
 %% Anatomical model definition
-modelID = 'larynx7a'; % ID of the anatomical model (see the `anatomical-models' folder)
+modelID = 'larynx1'; % ID of the anatomical model (see the `anatomical-models' folder)
 
 otherinfo = [];
 if ~useWrist
