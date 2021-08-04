@@ -99,7 +99,8 @@ minAdv = -sum(cutouts.h) - sum(cutouts.u) + 3e-3;
 %minAdv = -sum(cutouts.h) - sum(cutouts.u);
 maxBend = 0.025; % [1/m]
 maxKappa= 1/maxBend;
-maxTheta= deg2rad(100); % [rad]
+maxTheta= deg2rad(100)+init_config(2); % [rad]
+minTheta= -deg2rad(100)+init_config(2);
 maxDz   = 20e-3; %[m]
 maxDisp = sum(cutouts.h); % [m]
 maxRot  = deg2rad(360);  % [rad]
@@ -107,11 +108,11 @@ maxAdv  = 20e-3; % [m]
 
 % Normal Bounds
 if useWrist
-    qBounds = [-maxKappa, -maxTheta, 0,     0,      -maxRot, minAdv;
-                maxKappa,  maxTheta, maxDz, maxDisp, maxRot, maxAdv];
+    qBounds = [-maxKappa, minTheta , 0,     0,      -maxRot, minAdv;
+                maxKappa, maxTheta, maxDz, maxDisp, maxRot, maxAdv];
 else
 % No wrist bending Bounds
-    qBounds = [-maxKappa -maxTheta 0     0 -maxRot minAdv;
+    qBounds = [-maxKappa minTheta 0     0 -maxRot minAdv;
                maxKappa  maxTheta  maxDz 0  maxRot maxAdv];
 end
 
