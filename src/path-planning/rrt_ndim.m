@@ -101,9 +101,37 @@ while true
     now = toc;
     if (now - lastTime) >= dispInterval
         lastTime = now;
-        estTime =((nPoints/jj) * now - now)/60;
-        fprintf('On loop %d of %d \t %.2f minutes into simulation with about %.2f minutes left\n',...
+%         estTime1 =((nPoints/jj) * now - now)/60;
+%         fprintf('On loop %d of %d \t %.2f minutes into simulation with about %.2f minutes left\n',...
+%             jj, nPoints, now/60, estTime1) %Change estTime1 to estTime if the if loops not work.
+%         
+        if now < 3600
+            
+            estTime =((nPoints/jj) * now - now)/60;
+            fprintf('On loop %d of %d \t %.2f minutes into simulation with about %.2f minutes left\n',...
             jj, nPoints, now/60, estTime)
+        
+        elseif now > 3599 && now < 86400
+            
+            runhours = now/3600;
+            runminutes = 60*(runhours - floor(runhours));
+            estTimehours = ((nPoints/jj) * now - now)/3600;
+            estTimeminutes = 60 * (estTimehours - floor(estTimehours));
+            fprintf('On loop %d of %d \t %.f hour(s) %.f minute(s) into simulation with about %.f hour(s) %.f minute(s) left\n',...
+            jj, nPoints, fix(runhours), runminutes, fix(estTimehours), estTimeminutes)
+        
+        else
+            
+            rundays = now/86400;
+            runhours = 24 * (rundays-floor(rundays));
+            runminutes = 60 * (runhours - floor(runhours));
+            estTimeday =((nPoints/jj) * now - now)/86400;
+            estTimehours = 24 * (estTimeday - floor(estTimeday));
+            estTimeMinutes = 60 * (estTimehours - floor(estTimehours));
+            fprintf('On loop %d of %d \t %.f day(s) %.f hour(s) %.f minute(s) into simulation with about %.f day(s) %.f hour(s) %.f minute(s) left\n',...
+            jj, nPoints, fix(rundays), fix(runhours), runminutes, fix(estTimeday), fix(estTimehours), estTimeMinutes)
+        end         
+       
     end
     
     qRand = rand(n,1);      % random point of n-dim
