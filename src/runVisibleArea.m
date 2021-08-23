@@ -1,8 +1,11 @@
 clear all; clc;
+
+%% Load the mat file that you want to run
+
 matfile = 'larynx7a-nowrist-dq-0.06-5000pts.mat';
 load(matfile);
 
-%% offste angle
+%% offste angle [0 45 70 90] deg
 useWrist = false;
 laserOffsetAngle = 90;
 
