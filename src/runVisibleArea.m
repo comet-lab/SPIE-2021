@@ -1,16 +1,19 @@
-clear all; clc;
+clc;
 
-%% Load the mat file that you want to run
+% %% Load the mat file that you want to run
+% 
+% matfile = 'larynx8a-nowrist-dq-0.06-10000pts.mat';
+% load(matfile);
 
-matfile = 'larynx7a-nowrist-dq-0.06-5000pts.mat';
-load(matfile);
+%%
+% First, load the mat file
 
 %% offste angle [0 45 70 90] deg
 useWrist = false;
 laserOffsetAngle = 90;
 
 %% Anatomical model definition
-modelID = 'larynx7a'; % ID of the anatomical model (see the `anatomical-models' folder)
+modelID = 'larynx8a'; % ID of the anatomical model (see the `anatomical-models' folder)
 
 otherinfo = [];
 
