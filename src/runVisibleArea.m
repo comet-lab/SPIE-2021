@@ -1,4 +1,4 @@
-clc;
+clc; close all;
 
 % %% Load the mat file that you want to run
 % 
