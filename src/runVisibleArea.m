@@ -13,7 +13,7 @@ useWrist = false;
 laserOffsetAngle = 90;
 
 %% Anatomical model definition
-modelID = 'larynx8a'; % ID of the anatomical model (see the `anatomical-models' folder)
+modelID = 'larynx7a'; % ID of the anatomical model (see the `anatomical-models' folder)
 
 otherinfo = [];
 
@@ -34,7 +34,11 @@ end
 save([simulationID '.mat']);
 
 %% Run Ray casting
+tstart = tic;
 calcVisibleArea(simulationID, 'mcrc', laserOffsetAngle);
+telapsed = toc(tstart);
+s = seconds(telapsed);
+s.Format = 'hh:mm:ss'
 %% Create a video of this simulation and Histogram
 animateResults(simulationID);
 makeVisibilityFig(simulationID);
