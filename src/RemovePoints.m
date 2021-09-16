@@ -24,7 +24,7 @@ Ly2 = -0.044;
 %[R,C] = find(pList(2,:) > -0.015); % First test - for one point
 %[R,C] = find(pList(2,:) < -0.044); % Second test
 
-[R,C] = find(pList(2,:) > Ly1 | pList(2,:) < Ly2 );
+[R,C] = find(pList(2,:) > Ly1 | pList(2,:) < Ly2 ); % pList(a,:) where a = 1 for x, 2 for y and 3 for z axis
 
 %%
 % Generate the coordinates (x,y,z) matrix of points that are going to
@@ -45,3 +45,4 @@ pList(:,C) = [];
 % Save and plot the result
 save([simulationID '.mat']);
 makeVisibilityFig(simulationID);
+savefig(['figures/' simulationID '.fig']);
