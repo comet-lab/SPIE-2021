@@ -44,5 +44,12 @@ pList(:,C) = [];
 %%
 % Save and plot the result
 save([simulationID '.mat']);
+calcVisibleArea(simulationID, 'mcrc', laserOffsetAngle);
 makeVisibilityFig(simulationID);
+filename = 'testSim.csv';
+getSimData(simulationID, filename);
 savefig(['figures/' simulationID '.fig']);
+
+%% Generate simulation video
+% Optional, it could be supress.
+animateResults(simulationID);
