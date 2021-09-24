@@ -51,5 +51,5 @@ getSimData(simulationID, filename);
 savefig(['figures/' simulationID '.fig']);
 
 %% Generate simulation video
-% Optional, it could be supress.
+% Optional, it could be suppressed.
 animateResults(simulationID);
