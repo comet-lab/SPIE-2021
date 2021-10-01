@@ -52,6 +52,7 @@ in = intriangulation(vertices,faces,testp);
 h = trisurf(faces,vertices(:,1),vertices(:,2),vertices(:,3));
 set(h,'FaceColor','black','FaceAlpha',1/3,'EdgeColor','none');
 hold on;
+axis equal
 plot3(testp(:,1),testp(:,2),testp(:,3),'b.');
 plot3(testp(in==1,1),testp(in==1,2),testp(in==1,3),'ro');
 
@@ -60,12 +61,11 @@ figure
 h1 = trisurf(faces,vertices(:,1),vertices(:,2),vertices(:,3));
 set(h1,'FaceColor','black','FaceAlpha',1/3,'EdgeColor','none');
 hold on;
+axis equal
 plot3(testp(in==1,1),testp(in==1,2),testp(in==1,3),'b.');
 plot3(testp(in==1,1),testp(in==1,2),testp(in==1,3),'ro');
 
 pList = ([testp(in==1,1),testp(in==1,2),testp(in==1,3)]')/1000;
-
-
 
 %%
 % Save and plot the result
