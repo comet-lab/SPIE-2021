@@ -32,6 +32,6 @@ end
 figure('Name', simulationID);
 stlPlot(meMesh.vertices * 1e3, meMesh.faces, 'Visibility', v);
 axis equal
-view(-57.86, 26.19)
-set(gca, 'fontsize', 18);
+view(-36.9518,  29.7949)
+set(gca, 'fontsize', 14);
 title('Steerable Fiber');
