@@ -31,12 +31,14 @@ end
 
 figure('Name', simulationID);
 stlPlot(meMesh.vertices * 1e3, meMesh.faces, 'Visibility', v);
-axis equal
-view(-45, 35)
-% larynx 1 az = -45, el = 35
-% larynx 2 az = -135, el = 35
+axis equal 
+view(-45, 35) % larynx 1 az = -45, el = 35
+              % larynx 2 az = -135, el = 35
+xlim([15 40])
 zlim([-59 -18])
-% larynx 1 zlim zmin = -59, zmax = -18
+% larynx 1 xlim xmin = 15, xmax = 40
+%          zlim zmin = -59, zmax = -18
 % larynx 2 zlim zmin = -60, zmax = -15
-set(gca, 'fontsize', 18);
+set(gca, 'FontName', 'CMU Serif', 'fontsize', 18);
 title('Steerable Fiber');
+
