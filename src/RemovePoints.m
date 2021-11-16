@@ -1,10 +1,16 @@
 clear all; clc;
 
 % Load the file to remove the points 
-load('larynx1dq-0.06-5000pts.mat');
+load('larynx7a-nowrist-dq-0.06-10000pts.mat');
 
 otherinfo = [];
-otherinfo = [otherinfo '-PointsRemoved-'];
+if ~useWrist
+    otherinfo = [otherinfo '-nowrist' '-PointsRemoved-'];
+end
+if laserOffsetAngle
+    otherinfo = [otherinfo '-Laser_ang' '-PointsRemoved-' num2str(laserOffsetAngle) '-'];
+end
+
 %%
 % Generate the new name of the simulation
 simulationID = [modelID otherinfo 'dq-' num2str(dq) '-' num2str(nPoints) 'pts'];
