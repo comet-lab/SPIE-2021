@@ -8,7 +8,7 @@ if ~useWrist
     otherinfo = [otherinfo '-nowrist' '-PointsRemoved-'];
 end
 if laserOffsetAngle
-    otherinfo = [otherinfo '-Laser_ang' '-PointsRemoved-' num2str(laserOffsetAngle) '-'];
+    otherinfo = [otherinfo 'Laser_ang-' num2str(laserOffsetAngle) '-'];
 end
 
 %%
