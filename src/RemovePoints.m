@@ -1,4 +1,4 @@
-clear all; clc;
+clear all; clc; close all;
 
 % Load the file to remove the points 
 load('larynx7a-nowrist-dq-0.06-10000pts.mat');
