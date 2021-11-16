@@ -1,9 +1,8 @@
-clc; close all;
+clear all; clc; close all;
 
 %% Load the mat file that you want to run
 
-matfile = 'larynx7b-nowrist-dq-0.06-10000pts.mat';
-load(matfile);
+load('larynx7a-nowrist-PointsRemoved-dq-0.06-10000pts.mat');
 
 %%
 % First, load the mat file
@@ -13,16 +12,15 @@ useWrist = false;
 laserOffsetAngle = 45;
 
 %% Anatomical model definition
-modelID = 'larynx7b'; % ID of the anatomical model (see the `anatomical-models' folder)
 
 otherinfo = [];
 
 if ~useWrist
-    otherinfo = [otherinfo '-nowrist-'];
+    otherinfo = [otherinfo '-nowrist' '-PointsRemoved-'];
 end
 
 if laserOffsetAngle
-    otherinfo = [otherinfo '-Laser_ang-' num2str(laserOffsetAngle) '-'];
+    otherinfo = [otherinfo 'Laser_ang-' num2str(laserOffsetAngle) '-'];
 end
 
 simulationID = [modelID otherinfo 'dq-' num2str(dq) '-' num2str(nPoints) 'pts'];
@@ -45,5 +43,4 @@ filename = 'testSim.csv';
 getSimData(simulationID, filename);
 % Save figure to folder
 savefig(['figures/' simulationID '.fig']);
-
 animateResults(simulationID);
