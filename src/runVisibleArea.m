@@ -2,7 +2,7 @@ clear all; clc; close all;
 
 %% Load the mat file that you want to run
 
-load('larynx7a-nowrist-PointsRemoved-dq-0.06-10000pts.mat');
+load('larynx8b-nowrist-PointsRemoved-dq-0.06-10000pts.mat');
 
 %%
 % First, load the mat file
@@ -29,6 +29,7 @@ if laserOffsetAngle
     fprintf("Laser Angle offset of %d deg\n", laserOffsetAngle)
 end
 
+visibleMap = [];
 save([simulationID '.mat']);
 
 %% Run Ray casting
