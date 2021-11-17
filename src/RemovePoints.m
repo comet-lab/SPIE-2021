@@ -1,7 +1,7 @@
 clear all; clc; close all;
 
 % Load the file to remove the points 
-load('larynx7a-nowrist-dq-0.06-10000pts.mat');
+load('larynx8b-nowrist-dq-0.06-10000pts.mat');
 
 otherinfo = [];
 if ~useWrist
@@ -108,7 +108,7 @@ TList = TemTList;
 qList = TemqList;
 qListNormalized = TemqListNormalized;
 xList = TemxList;
-
+visibleMap = [];
 %%
 % Save and plot the result
 save([simulationID '.mat']);
