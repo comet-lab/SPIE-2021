@@ -14,9 +14,9 @@ addpath('kinematics', 'utils', 'figure-generation', 'path-planning', ...
         'utils/wrist_configs/', '../anatomical-models', 'simAnalyzer/');
     
 %% Simulation parameters
-nPoints = 100; % number of configurations sampled by RRT
+nPoints = 150; % number of configurations sampled by RRT
 dq = 0.06;
-useWrist = false;
+useWrist = true;
 laserOffsetAngle = 0;
 
 %% Anatomical model definition
@@ -27,7 +27,7 @@ if ~useWrist
     otherinfo = [otherinfo '-nowrist-'];
 end
 if laserOffsetAngle
-    otherinfo = [otherinfo '-Laser_ang-' num2str(laserOffsetAngle) '-'];
+    otherinfo = [otherinfo 'Laser_ang-' num2str(laserOffsetAngle) '-'];
 end
 
 simulationID = [modelID otherinfo 'dq-' num2str(dq) '-' num2str(nPoints) 'pts'];
@@ -36,9 +36,9 @@ simulationID = [modelID otherinfo 'dq-' num2str(dq) '-' num2str(nPoints) 'pts'];
 %  The variable naming used in this section is consistent with (Chiluisa et al. ISMR 2020)
 n = 10; % number of cutouts
 viewang = deg2rad(85);
-R = 8;
+R = 3;
 %L = calc_L(viewang, R, 2.5, 0, 0);
-L = 20;
+L = 10;
 [singleH, singleU] = calc_config(L, R, n, 1.1/2, 0.9/2, 0.935);
 
 %u = 0.000367766480556499;
@@ -66,11 +66,13 @@ end
 %% Estimate the reachable workspace with RRT`
 calcReachableSpace(u, h, w, ID, OD, modelID, nPoints, dq, useWrist, simulationID);
 
+%% Remove Points
+RemovePoints(simulationID);
+
 %% Run Ray casting
 calcVisibleArea(simulationID, 'mcrc', laserOffsetAngle);
 
 %% Create a video of this simulation and Histogram
-animateResults(simulationID);
 makeVisibilityFig(simulationID);
 
 filename = 'testSim.csv';
@@ -78,3 +80,5 @@ getSimData(simulationID, filename);
 
 % Save figure to folder
 savefig(['figures/' simulationID '.fig']);
+
+animateResults(simulationID);

@@ -2,21 +2,21 @@ clear all; clc; close all;
 
 %% Load the mat file that you want to run
 
-load('larynx8b-nowrist-PointsRemoved-dq-0.06-10000pts.mat');
+load('larynx1-nowrist-dq-0.06-150pts.mat');
 
 %%
 % First, load the mat file
 
 %% offste angle [0 45 70 90] deg
 useWrist = false;
-laserOffsetAngle = 45;
+laserOffsetAngle = 25;
 
 %% Anatomical model definition
 
 otherinfo = [];
 
 if ~useWrist
-    otherinfo = [otherinfo '-nowrist' '-PointsRemoved-'];
+    otherinfo = [otherinfo '-nowrist-'];
 end
 
 if laserOffsetAngle
@@ -29,8 +29,13 @@ if laserOffsetAngle
     fprintf("Laser Angle offset of %d deg\n", laserOffsetAngle)
 end
 
-visibleMap = [];
-save([simulationID '.mat']);
+%% params to keep track of
+results.modelID = modelID;
+results.nPoints = nPoints;
+results.dq = dq;
+results.simID = simulationID;
+%visibleMap = [];
+save([simulationID '.mat'], '-v7.3');
 
 %% Run Ray casting
 tstart = tic;
