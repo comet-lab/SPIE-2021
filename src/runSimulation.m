@@ -10,34 +10,35 @@
 % Last Version: 5/29/2020
 close all, clear, clc
 addpath('kinematics', 'utils', 'figure-generation', 'path-planning', ...
-        'utils/stlTools/', 'utils/visibility/', 'utils/ray-casting/', '../anatomical-models');
+        'utils/stlTools/', 'utils/visibility/', 'utils/ray-casting/', ...
+        'utils/wrist_configs/', '../anatomical-models', 'simAnalyzer/');
     
 %% Simulation parameters
-nPoints = 10; % number of configurations sampled by RRT
+nPoints = 15; % number of configurations sampled by RRT
 dq = 0.06;
 useWrist = false;
-laserOffsetAngle = 0;
+laserOffsetAngle = 45;
 
 %% Anatomical model definition
-modelID = 'larynx7a'; % ID of the anatomical model (see the `anatomical-models' folder)
+modelID = 'larynx1'; % ID of the anatomical model (see the `anatomical-models' folder)
 
 otherinfo = [];
 if ~useWrist
-    otherinfo = [otherinfo '-nowrist-'];
+    otherinfo = [otherinfo '-nowrist'];
 end
 if laserOffsetAngle
     otherinfo = [otherinfo '-Laser_ang-' num2str(laserOffsetAngle) '-'];
 end
 
-simulationID = [modelID otherinfo 'dq-' num2str(dq) '-' num2str(nPoints) 'pts'];
+simulationID = [modelID otherinfo '-dq-' num2str(dq) '-' num2str(nPoints) 'pts'];
 
 %% Endoscope geometry definition
 %  The variable naming used in this section is consistent with (Chiluisa et al. ISMR 2020)
 n = 10; % number of cutouts
 viewang = deg2rad(85);
-R = 8;
+R = 3;
 %L = calc_L(viewang, R, 2.5, 0, 0);
-L = 20;
+L = 10;
 [singleH, singleU] = calc_config(L, R, n, 1.1/2, 0.9/2, 0.935);
 
 %u = 0.000367766480556499;
@@ -65,11 +66,13 @@ end
 %% Estimate the reachable workspace with RRT`
 calcReachableSpace(u, h, w, ID, OD, modelID, nPoints, dq, useWrist, simulationID);
 
+%% Remove Points
+RemovePoints(simulationID);
+
 %% Run Ray casting
 calcVisibleArea(simulationID, 'mcrc', laserOffsetAngle);
 
 %% Create a video of this simulation and Histogram
-animateResults(simulationID);
 makeVisibilityFig(simulationID);
 
 filename = 'testSim.csv';
@@ -77,3 +80,5 @@ getSimData(simulationID, filename);
 
 % Save figure to folder
 savefig(['figures/' simulationID '.fig']);
+
+animateResults(simulationID);
