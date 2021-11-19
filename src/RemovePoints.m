@@ -5,7 +5,7 @@ function RemovePoints(simulationID)
 %  laser beam.
 %
 %  Authors: A. Chiluisa <ajchiluisa@wpi.edu>
-%           R.  <rmtougas@wpi.edu>
+%           R. Tougas <rmtougas@wpi.edu>
 %           E. Minch  <evminch@wpi.edu>
 %           R. Mihaleva <ramihaleva@wpi.edu>
 %  
@@ -28,24 +28,27 @@ Stl2 = fullfile('..', 'anatomical-models', modelID, file2);
 [vertices,faces,Name2] = stlRead(Stl2);
 in = intriangulation(vertices,faces,testp);
 
-% Plot results
+% Plot figure results
 
-
+figure('Name', [simulationID, '-Points Removed'])
+subplot(1,2,1)
 h = trisurf(faces,vertices(:,1),vertices(:,2),vertices(:,3));
 set(h,'FaceColor','black','FaceAlpha',1/3,'EdgeColor','none');
 hold on;
 axis equal
 plot3(testp(:,1),testp(:,2),testp(:,3),'b.');
 plot3(testp(in==1,1),testp(in==1,2),testp(in==1,3),'ro');
+title('Original Points')
 
 
-figure
+subplot(1,2,2)
 h1 = trisurf(faces,vertices(:,1),vertices(:,2),vertices(:,3));
 set(h1,'FaceColor','black','FaceAlpha',1/3,'EdgeColor','none');
 hold on;
 axis equal
 plot3(testp(in==1,1),testp(in==1,2),testp(in==1,3),'b.');
 plot3(testp(in==1,1),testp(in==1,2),testp(in==1,3),'ro');
+title('Removed Points')
 
 pList = ([testp(in==1,1),testp(in==1,2),testp(in==1,3)]')/1000;
 aList = ([testa(in==1,1),testa(in==1,2),testa(in==1,3)]');
