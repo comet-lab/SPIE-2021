@@ -24,13 +24,13 @@ modelID = 'larynx1'; % ID of the anatomical model (see the `anatomical-models' f
 
 otherinfo = [];
 if ~useWrist
-    otherinfo = [otherinfo '-nowrist-'];
+    otherinfo = [otherinfo '-nowrist'];
 end
 if laserOffsetAngle
-    otherinfo = [otherinfo 'Laser_ang-' num2str(laserOffsetAngle) '-'];
+    otherinfo = [otherinfo '-Laser_ang-' num2str(laserOffsetAngle) '-'];
 end
 
-simulationID = [modelID otherinfo 'dq-' num2str(dq) '-' num2str(nPoints) 'pts'];
+simulationID = [modelID otherinfo '-dq-' num2str(dq) '-' num2str(nPoints) 'pts'];
 
 %% Endoscope geometry definition
 %  The variable naming used in this section is consistent with (Chiluisa et al. ISMR 2020)
