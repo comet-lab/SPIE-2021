@@ -14,7 +14,7 @@ addpath('kinematics', 'utils', 'figure-generation', 'path-planning', ...
         'utils/wrist_configs/', '../anatomical-models', 'simAnalyzer/');
     
 %% Simulation parameters
-nPoints = 150; % number of configurations sampled by RRT
+nPoints = 1; % number of configurations sampled by RRT
 dq = 0.06;
 useWrist = true;
 laserOffsetAngle = 0;
