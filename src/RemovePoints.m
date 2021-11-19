@@ -37,7 +37,7 @@ set(h,'FaceColor','black','FaceAlpha',1/3,'EdgeColor','none');
 hold on;
 axis equal
 plot3(testp(:,1),testp(:,2),testp(:,3),'b.');
-plot3(testp(in==1,1),testp(in==1,2),testp(in==1,3),'ro');
+plot3(testp(in==0,1),testp(in==0,2),testp(in==0,3),'ro');
 title('Original Points')
 
 
@@ -47,7 +47,7 @@ set(h1,'FaceColor','black','FaceAlpha',1/3,'EdgeColor','none');
 hold on;
 axis equal
 plot3(testp(in==1,1),testp(in==1,2),testp(in==1,3),'b.');
-plot3(testp(in==1,1),testp(in==1,2),testp(in==1,3),'ro');
+%plot3(testp(in==1,1),testp(in==1,2),testp(in==1,3),'ro');
 title('Removed Points')
 
 pList = ([testp(in==1,1),testp(in==1,2),testp(in==1,3)]')/1000;
