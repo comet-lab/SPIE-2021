@@ -109,6 +109,12 @@ qList = TemqList;
 qListNormalized = TemqListNormalized;
 xList = TemxList;
 visibleMap = [];
+
+%% params to keep track of
+results.modelID = modelID;
+results.nPoints = nPoints;
+results.dq = dq;
+results.simID = simulationID;
 %%
 % Save and plot the result
 save([simulationID '.mat']);
