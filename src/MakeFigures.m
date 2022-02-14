@@ -1,6 +1,6 @@
-clear all; clc;
+clear; clc;
 
-simulationID = 'larynx1-PointsRemoved-dq-0.06-10000pts';
+simulationID = 'larynx1-dq-0.06-10000pts';
 
 load([simulationID '.mat']);
 fid = fopen(fullfile('..', 'anatomical-models', 'configurations.txt'));
@@ -32,13 +32,18 @@ end
 figure('Name', simulationID);
 stlPlot(meMesh.vertices * 1e3, meMesh.faces, 'Visibility', v);
 axis equal 
-view(-45, 35) % larynx 1 az = -45, el = 35
-              % larynx 2 az = -135, el = 35
-xlim([15 40])
-zlim([-59 -18])
-% larynx 1 xlim xmin = 15, xmax = 40
-%          zlim zmin = -59, zmax = -18
-% larynx 2 zlim zmin = -60, zmax = -15
-set(gca, 'FontName', 'CMU Serif', 'fontsize', 18);
+
+% For larynx 1
+view(-45, 35) 
+xlim([17 40])
+zlim([-58 -20])
+
+% For larynx 2
+% view(-135,35)
+% xlim([-57 -20])
+% ylim([-42 -17])
+% zlim([-60 -20])
+
+set(gca, 'FontName', 'CMU Serif', 'fontsize', 20);
 title('Steerable Fiber');
 
