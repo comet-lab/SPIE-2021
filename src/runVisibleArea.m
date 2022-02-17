@@ -2,14 +2,14 @@ clear all; clc; close all;
 
 %% Load the mat file that you want to run
 
-load('larynx1-nowrist-dq-0.06-150pts.mat');
+load('CoronalView2-robotFile-dq-0-6pts.mat');
 
 %%
 % First, load the mat file
 
 %% offste angle [0 45 70 90] deg
 useWrist = false;
-laserOffsetAngle = 25;
+laserOffsetAngle = 0;
 
 %% Anatomical model definition
 
@@ -46,7 +46,7 @@ s.Format = 'hh:mm:ss'
 %% Create a video of this simulation and Histogram
 makeVisibilityFig(simulationID);
 filename = 'testSim.csv';
-getSimData(simulationID, filename);
-% Save figure to folder
-savefig(['figures/' simulationID '.fig']);
-animateResults(simulationID);
+% getSimData(simulationID, filename);
+% % Save figure to folder
+% savefig(['figures/' simulationID '.fig']);
+% animateResults(simulationID);
