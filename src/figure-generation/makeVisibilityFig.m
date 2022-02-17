@@ -7,6 +7,7 @@ function makeVisibilityFig(simulationID, options)
 arguments
     simulationID (1,:) char
     options.plotVisible (1,1) logical = true
+    options.plotCones (1,1) logical = true
 end
 
 load([simulationID '.mat']);
@@ -52,4 +53,16 @@ else
     hold on, axis equal
     scatter3(pList(1,:)*1e3, pList(2,:)*1e3, pList(3,:)*1e3, 'filled', 'red');
 end
+if options.plotCones
+    for i = 1:size(quiv,2)
+        vp = quiv(1,i).vp;
+        dispR = quiv(1,i).dispR;
+        gcf;
+        subplot(122)
+        hold on, axis equal
+        title('Faces within range with rays')
+        quiver3(vp(1,:), vp(2,:), vp(3,:), dispR(1,:), dispR(2,:), dispR(3,:));
+    end
+end
+
 end

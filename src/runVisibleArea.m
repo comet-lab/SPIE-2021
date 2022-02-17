@@ -44,7 +44,7 @@ telapsed = toc(tstart);
 s = seconds(telapsed);
 s.Format = 'hh:mm:ss'
 %% Create a video of this simulation and Histogram
-makeVisibilityFig(simulationID);
+makeVisibilityFig(simulationID,'plotVisible',true);
 filename = 'testSim.csv';
 % getSimData(simulationID, filename);
 % % Save figure to folder
