@@ -22,7 +22,8 @@ function [visibleMap, quiver] = visibilitymap(viewPoint, approachVec, meModel, a
 
 % Laser Parameters
 laserRange = 3e-3;      % range of laser is 3mm
-laserFOV = 40;          % divergence angle of laser
+%laserFOV = 40;          % divergence angle of laser Endostat Fiber
+laserFOV = 60;          % divergence angle of laser Optical Fiber FP200ERT Thorlabs
 
 FOV = deg2rad(laserFOV);
 
