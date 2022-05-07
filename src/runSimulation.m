@@ -14,10 +14,10 @@ addpath('kinematics', 'utils', 'figure-generation', 'path-planning', ...
         'utils/wrist_configs/', '../anatomical-models', 'simAnalyzer/');
     
 %% Simulation parameters
-nPoints = 15; % number of configurations sampled by RRT
+nPoints = 10; % number of configurations sampled by RRT
 dq = 0.06;
-useWrist = false;
-laserOffsetAngle = 45;
+useWrist = true;
+laserOffsetAngle = 0;
 
 %% Anatomical model definition
 modelID = 'larynx1'; % ID of the anatomical model (see the `anatomical-models' folder)
@@ -36,9 +36,9 @@ simulationID = [modelID otherinfo '-dq-' num2str(dq) '-' num2str(nPoints) 'pts']
 %  The variable naming used in this section is consistent with (Chiluisa et al. ISMR 2020)
 n = 10; % number of cutouts
 viewang = deg2rad(85);
-R = 3;
+R = 8;
 %L = calc_L(viewang, R, 2.5, 0, 0);
-L = 10;
+L = 15;
 [singleH, singleU] = calc_config(L, R, n, 1.1/2, 0.9/2, 0.935);
 
 %u = 0.000367766480556499;
