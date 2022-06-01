@@ -1,4 +1,4 @@
- function [qListNormalized,qList,pList,aList,xList, TList, collLocs] = rrt_ndim(robot, qbounds, model, deltaQ, nPoints, init_config, checkFOV)
+ function [qListNormalized,qList,pList,aList,xList, TList, collLocs, TList_camEndo, pList_camEndo] = rrt_ndim(robot, qbounds, model, deltaQ, nPoints, init_config, checkFOV)
 % RRT implements the basic Rapidly-Exploring Random Trees algorithm for a
 % generic continuum robot
 %
@@ -58,6 +58,8 @@ pList = zeros(3, nPoints);
 aList = zeros(3, nPoints);
 xList = zeros(3, nPoints);  % x-direction for each points
 TList = zeros(4,4, nPoints); % tip transformations for each point
+TList_camEndo = zeros(4,4, nPoints); % tip transformation for the endoscope cam
+pList_camEndo = zeros(3, nPoints);
 
 % initialize the base transform from the model
 % if collisionDetection
@@ -162,12 +164,15 @@ while true
     flagged = sum(inter) > 0;           
     
     % if any interesctions occur before the tip (dist is less than the ray
-    % length of the tip) then the view is obstructed 
-    if flagged
+    % length of the tip) then the view is obstructed
+%     if ~flagged
+%         continue;
+%     end
+    if flagged %RESTORE TO JUST flagged not ~flagged
         dists(inter == 0) = inf;
         [val] = min(dists);
         
-        if val < rayLength
+        if val < rayLength % RESTORE TO THIS : val < rayLength
 %             fprintf('Camera view is obstructed\n');
             continue;
         end
@@ -221,6 +226,8 @@ while true
     aList(:,jj) = T(1:3,3,end);
     xList(:,jj) = T(1:3,1,end);
     TList(:,:,jj) = T(:,:,end);
+    TList_camEndo(:,:,jj) = robot.endo.camT
+    pList_camEndo(:,jj) = TList_camEndo(1:3,4,jj)
     
     % jj = jj + 1; RESTORE THIS LINE
     

@@ -1,23 +1,9 @@
-function calcVisibleArea(simulationID, alg, laserOffsetAngle)
-%% This function runs a ray casting procedure to estimate the visible surface attained by a 
-%  translaryngeal endoscope inside the larynx
-%  
-%  IMPORTANT: Before running this function, you need to run
-%  `calcReachableSpace' and then pass this function the same
-%  simulationID
-%
-%  Inputs:
-%       simulationID: identifier of this simulation
-%       alg - ('hpr' or 'mcrc') to select between which algorithm is used (Hidden
-%       Point Removal or Monte Carlo Ray Casting)
-%       laserOffsetAngle - [deg] angle from z that laser projects at
-%
-% Authors: Loris Fichera 
-%          Jesse F. d'Almeida  <jfdalmeida@wpi.edu>
-% 
-% Last Revision: 7/1/2020
+load([simulationID '.mat']);
+% Ttestpoints = robot.endo.transformations;
+% for i = 1:size(Ttestpoints,3)
+%     tip_list_testpoints(:,i) = Ttestpoints(1:3,end,i);
+% end
 
-%% Load in Simulation
 fprintf('* Estimation of the visible surface. Using %s algorithm*\n', alg)
 
 load([simulationID '.mat']);
@@ -66,14 +52,14 @@ laserAng = deg2rad(laserOffsetAngle);           % convert laser into degrees
 laserVec = [sin(laserAng) 0 cos(laserAng) 0]';  % unit vector of laser direction (0 at end so that it can be transformed)
 
 % for each point, calculate visibility 
-for jj = 1 : size(pList_camEndo,2) %Return to (pList,2)
+for jj = 1 : size(robot.endo.transformations,2)
     
     % get current transformation to tip
-    T_tip = TList_camEndo(:,:,jj); %Return to TList(:,:,jj)
+    T_tip = robot.endo.transformations(:,:,jj);
     approach4 = T_tip * laserVec;                   % approach vector with extra element from transform
     approach = approach4(1:3);                      % split 3D vector
 
-    [m, q] = visibilitymap(pList_camEndo(:,jj), approach, meMesh, alg); %Return to (visibilitymap(pList,....)
+    [m, q] = visibilitymap(pList(:,jj), approach, meMesh, alg);
     visibleMap(:,jj) = m;   % visibility of faces for this point
     
     % add if there are quivers, if not add empty so no rays will be
@@ -114,5 +100,16 @@ results.percArea = percVISAREA;
 
 save([simulationID '.mat'], '-v7.3');
 
-
-end
+%% Run Ray casting
+tstart = tic;
+calcVisibleArea(simulationID, 'mcrc', laserOffsetAngle);
+telapsed = toc(tstart);
+s = seconds(telapsed);
+s.Format = 'hh:mm:ss'
+%% Create a video of this simulation and Histogram
+makeVisibilityFig(simulationID);
+filename = 'testSim.csv';
+getSimData(simulationID, filename);
+% Save figure to folder
+savefig(['figures/' simulationID '.fig']);
+animateResults(simulationID);
