@@ -1,4 +1,4 @@
-function [visibleMap, quiver] = visibilitymap(viewPoint, approachVec, meModel, alg)
+function [visibleMap, quiver] = visibilitymap(viewPoint, approachVec, meModel, alg, laserRange, laserFOV)
 % VISIBILITYMAP - list of visible areas from a specific viewpoint within a
 % model and a given approach
 %   
@@ -21,9 +21,9 @@ function [visibleMap, quiver] = visibilitymap(viewPoint, approachVec, meModel, a
 %   Last Revision: 6/16/2020
 
 % Laser Parameters
-laserRange = 3e-3;      % range of laser is 3mm
+%laserRange = 3e-3;      % range of laser is 3mm
 %laserFOV = 40;          % divergence angle of laser Endostat Fiber
-laserFOV = 60;          % divergence angle of laser Optical Fiber FP200ERT Thorlabs
+%laserFOV = 60;          % divergence angle of laser Optical Fiber FP200ERT Thorlabs
 
 FOV = deg2rad(laserFOV);
 
@@ -43,7 +43,7 @@ rays = bsxfun(@minus, vertices, viewPoint);
 % rays of length that are within the laser range
 rayLength = vecnorm(rays);
 closeVertices = (rayLength <= laserRange);
-rangeVertices = (rayLength <= 7e-3);
+rangeVertices = (rayLength <= 50e-3);
 
 % Convert rays into unit vectors
 raysu = normc(rays);

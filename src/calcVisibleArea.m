@@ -73,7 +73,7 @@ for jj = 1 : size(pList,2)
     approach4 = T_tip * laserVec;                   % approach vector with extra element from transform
     approach = approach4(1:3);                      % split 3D vector
 
-    [m, q] = visibilitymap(pList(:,jj), approach, meMesh, alg);
+    [m, q] = visibilitymap(pList(:,jj), approach, meMesh, alg, 3e-3, 60);
     visibleMap(:,jj) = m;   % visibility of faces for this point
     
     % add if there are quivers, if not add empty so no rays will be

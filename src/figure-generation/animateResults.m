@@ -68,6 +68,11 @@ h3 = surf(robotPhysicalModel.surface.Xe, ...
     robotPhysicalModel.surface.Ye, ...
     robotPhysicalModel.surface.Ze, ...
     'FaceColor','red');
+
+axis equal
+h4 = triad('Matrix', robot.endo.transformations(:,:,end), 'scale', 1e-2, 'linewidth', 2.5);
+h5 = triad('Matrix', robot.wrist.transformations(:,:,end), 'scale', 1e-2, 'linewidth', 2.5);
+
 xlabel('X [m]');
 ylabel('Y [m]');
 zlabel('Z [m]');
@@ -84,7 +89,7 @@ if plotQuiv
     axis manual
 end
 
-v = logical(visibleMap(:,1));
+v = logical(visibleMap(:,1) & visibleMapCamera(:,1));
 
 % Endoscope Scatter Plot
 subplot(2,3,3);
@@ -135,7 +140,7 @@ while true
     
     % Visibility
     if exist('visibleMap', 'var')
-        v = any([v visibleMap(:,ii)], 2); % calculate the row-wise logical OR
+        v = any([v (visibleMap(:,ii) & visibleMapCamera(:,ii))], 2); % calculate the row-wise logical OR
         colorMap = zeros(numFaces, 3);
         colorMap = colors(logical(v)+1, :);
         h1.FaceVertexCData = colorMap;
@@ -158,6 +163,11 @@ while true
     endo.ZData = qList(3,1:ii);
 %     endo.CData = [repmat([0 0.4470 0.7410], ii-1, 1); 1 0 0];
     endo.SizeData = [36 * ones(1,ii-1), 100];
+
+    % Update the endoscope tip triad
+    set(h4, 'Matrix', robot.endo.transformations(:,:,end));
+    drawnow
+
     
     % Wrist (Tau, Phi, Delta L)
     wrist.XData = qList(4,1:ii);
@@ -165,6 +175,9 @@ while true
     wrist.ZData = qList(6,1:ii);
 %     wrist.CData = [repmat([0 0.4470 0.7410], ii-1, 1); 1 0 0];
     wrist.SizeData = [36 * ones(1,ii-1), 100];
+
+    % Update the endoscope tip triad
+    set(h5, 'Matrix', robot.wrist.transformations(:,:,end));
     
     
     ii = ii + 1;

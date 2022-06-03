@@ -14,9 +14,9 @@ addpath('kinematics', 'utils', 'figure-generation', 'path-planning', ...
         'utils/wrist_configs/', '../anatomical-models', 'simAnalyzer/');
     
 %% Simulation parameters
-nPoints = 10; % number of configurations sampled by RRT
+nPoints = 50; % number of configurations sampled by RRT
 dq = 0.06;
-useWrist = true;
+useWrist = false;
 laserOffsetAngle = 0;
 
 %% Anatomical model definition
@@ -71,6 +71,9 @@ RemovePoints(simulationID);
 
 %% Run Ray casting
 calcVisibleArea(simulationID, 'mcrc', laserOffsetAngle);
+
+%% Run Ray casting again, this time to estimate the visibile tissue from the endoscope
+calcVisibleArea2(simulationID, 'mcrc');
 
 %% Create a video of this simulation and Histogram
 makeVisibilityFig(simulationID);
