@@ -1,4 +1,4 @@
-function [visibleMap, quiver] = visibilitymap(viewPoint, approachVec, meModel, alg, laserRange, laserFOV)
+function [visibleMap, quiver] = visibilitymap(viewPoint, approachVec, meModel, alg, laserRange, laserFOV, visibleMapTotal)
 % VISIBILITYMAP - list of visible areas from a specific viewpoint within a
 % model and a given approach
 %   
@@ -91,6 +91,11 @@ rangeFaces = [];
 range2Faces = [];   % holds original idx of each face in range
 
 for ii = 1:size(faces,2)
+    
+    if ~visibleMapTotal(ii)
+        continue
+    end
+    
     sf = faces(:,ii);
     v1 = sf(1);
     v2 = sf(2);

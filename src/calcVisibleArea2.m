@@ -42,12 +42,12 @@ qList = qList;
 T = T;
 robot = robot;
 
-%hw = waitbar(0, 'Calculating the visibility map. Please wait...');
+hw = waitbar(0, 'Calculating the visibility map. Please wait...');
 
 %% RUN VISIBILITY: for each point, get list of visibile faces
 
 % for each point, calculate visibility 
-parfor jj = 1 : size(pList, 2)
+for jj = 1 : size(pList, 2)
 
     % First calculate the position of the tip of the endoscope
     %endoTip = robot.endo.transformations(1:3,4,end);
@@ -59,7 +59,7 @@ parfor jj = 1 : size(pList, 2)
     approach = robot.endo.transformations(1:3,3,end);
     %approach = approach4(1:3);                      % split 3D vector
 
-    [m, q] = visibilitymap(endoTip, approach, meMesh, alg, 50e-3, 85);
+    [m, q] = visibilitymap(endoTip, approach, meMesh, alg, 50e-3, 85, visibleMapTotal);
     visibleMapCamera(:,jj) = m;   % visibility of faces for this point
     
     % add if there are quivers, if not add empty so no rays will be
@@ -70,9 +70,9 @@ parfor jj = 1 : size(pList, 2)
         quivCamera(jj) = q1;
     end
     
-    %waitbar(jj/nPoints, hw, 'Calculating the visibility map. Please wait...');
+    waitbar(jj/nPoints, hw, 'Calculating the visibility map. Please wait...');
 end
-%close(hw);
+close(hw);
 
 % Sum rows of map to get amount for each face
 numFaces = length(faces);
