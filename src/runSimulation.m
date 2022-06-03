@@ -69,10 +69,10 @@ addpath('kinematics', 'utils', 'figure-generation', 'path-planning', ...
 % %% Remove Points
 % RemovePoints(simulationID);
 
-load 'larynx1-nowrist-Laser_ang-90-dq-0.06-10000pts';
+load 'larynx1-nowrist-dq-0.06-100pts.mat';
 
 %% Run Ray casting
-calcVisibleArea(simulationID, 'mcrc', laserOffsetAngle);
+%calcVisibleArea(simulationID, 'mcrc', laserOffsetAngle);
 
 %% Run Ray casting again, this time to estimate the visibile tissue from the endoscope
 calcVisibleArea2(simulationID, 'mcrc');
