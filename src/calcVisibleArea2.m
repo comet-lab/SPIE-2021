@@ -55,7 +55,7 @@ for jj = 1 : size(pList, 2)
     
     % get current transformation to tip
     robot.fwkine(qList(:,jj), T);
-    endoTip = robot.endo.transformations(1:3,4,end);
+    endoTip = robot.endo.camT(1:3,4,end);
     approach = robot.endo.transformations(1:3,3,end);
     %approach = approach4(1:3);                      % split 3D vector
 

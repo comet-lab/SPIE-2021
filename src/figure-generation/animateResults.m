@@ -70,7 +70,7 @@ h3 = surf(robotPhysicalModel.surface.Xe, ...
     'FaceColor','red');
 
 axis equal
-h4 = triad('Matrix', robot.endo.transformations(:,:,end), 'scale', 1e-2, 'linewidth', 2.5);
+h4 = triad('Matrix', robot.endo.camT, 'scale', 1e-2, 'linewidth', 2.5);
 h5 = triad('Matrix', robot.wrist.transformations(:,:,end), 'scale', 1e-2, 'linewidth', 2.5);
 
 xlabel('X [m]');
@@ -165,7 +165,7 @@ while true
     endo.SizeData = [36 * ones(1,ii-1), 100];
 
     % Update the endoscope tip triad
-    set(h4, 'Matrix', robot.endo.transformations(:,:,end));
+    set(h4, 'Matrix', robot.endo.camT);
     drawnow
 
     
