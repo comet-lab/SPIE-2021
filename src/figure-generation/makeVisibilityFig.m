@@ -6,29 +6,29 @@ function makeVisibilityFig(simulationID)
 % Author: Jesse F. d'Almeida  <jfdalmeida@wpi.edu>
 
 load([simulationID '.mat']);
-fid = fopen(fullfile('..', 'anatomical-models', 'configurations.txt'));
-text = textscan(fid, '%s %f %f %f %f %f %f %f %f %f %f %f %f');
-fclose(fid);
-
-configurations = cell2mat(text(2:end));
-line_no = find(strcmp(text{1}, modelID));
-
-path = fullfile('..', 'anatomical-models', modelID);
-
+% fid = fopen(fullfile('..', 'anatomical-models', 'configurations.txt'));
+% text = textscan(fid, '%s %f %f %f %f %f %f %f %f %f %f %f %f');
+% fclose(fid);
+% 
+% configurations = cell2mat(text(2:end));
+% line_no = find(strcmp(text{1}, modelID));
+% 
+% path = fullfile('..', 'anatomical-models', modelID);
+% 
 % Read the Raw Meshes from file
-pathMe = fullfile(path, 'tissue_cropped.stl');
-[vertices, faces, ~, ~] = stlRead(pathMe);
-numverts = size(vertices, 2);
-
+% pathMe = fullfile(path, 'tissue_cropped.stl');
+% [vertices, faces, ~, ~] = stlRead(pathMe);
+% numverts = size(vertices, 2);
+% 
 % Convert the raw meshes into objects that can be passed
 % to the `patch' function
-meMesh.faces = faces;
-meMesh.vertices = vertices .* 1e-3;
+% meMesh.faces = faces;
+% meMesh.vertices = vertices .* 1e-3;
 
 plotReachable = true;
 
 if exist('visibleMapTotal', 'var')
-    v = logical(visibleMapTotal);
+    v = logical(visibleMapTotalCamera);
 else
     v = zeros(length(faces),1);
 end

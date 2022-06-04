@@ -13,22 +13,22 @@ line_no = find(strcmp(text{1}, modelID));
 path = fullfile('..', 'anatomical-models', modelID);
 
 % Read the Raw Meshes from file
-pathMe = fullfile(path, 'tissue_cropped.stl');
-[vertices, faces, ~, ~] = stlRead(pathMe);
+%pathMe = fullfile(path, 'tissue_cropped.stl');
+%[vertices, faces, ~, ~] = stlRead(pathMe);
 
 % Convert the raw meshes into objects that can be passed
 % to the `patch' function
-meMesh.faces = faces;
-meMesh.vertices = vertices .* 1e-3;
+%meMesh.faces = faces;
+%meMesh.vertices = vertices .* 1e-3;
 % meMesh.Vertices = meMesh.Vertices ;
 
-meMesh.FaceVertexCData = ones(size(meMesh.vertices, 1), 1);
-meMesh.LineStyle = 'none';
-meMesh.FaceColor = 'flat';
-meMesh.FaceAlpha = 0.4 ;
+%meMesh.FaceVertexCData = ones(size(meMesh.vertices, 1), 1);
+%meMesh.LineStyle = 'none';
+%meMesh.FaceColor = 'flat';
+%meMesh.FaceAlpha = 0.4 ;
 
 % Calculate the visual range- list of faces [3xM] that are visible
-visibleFaces = [];
+%visibleFaces = [];
 
 % empty quiver for when no faces are visible
 q1.vp = [0;0;0];
@@ -42,6 +42,7 @@ qList = qList;
 T = T;
 robot = robot;
 visibleMapTotal = visibleMapTotal;
+meMesh = meMesh;
 
 %hw = waitbar(0, 'Calculating the visibility map. Please wait...');
 
@@ -71,6 +72,7 @@ parfor jj = 1 : size(pList, 2)
         quivCamera(jj) = q1;
     end
     
+    jj
     %waitbar(jj/nPoints, hw, 'Calculating the visibility map. Please wait...');
 end
 %close(hw);
