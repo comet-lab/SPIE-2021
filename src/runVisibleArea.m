@@ -1,8 +1,16 @@
-clear all; clc; close all;
+% clear all; clc; close all;
 
 %% Load the mat file that you want to run
 
-load('CoronalView2-robotFile-dq-0-6pts.mat');
+% load('CoronalView2-2_18-w-robotFile-dq-0-40pts.mat');
+% load('CoronalView2-2-18-r-robotFile-dq-0-40pts.mat');
+
+% load('CoronalView2-2_21-w-robotFile-dq-0-51pts.mat');
+
+load('CoronalView2-tot-r-robotFile-dq-0-91pts.mat');
+% load('CoronalView2-tot-w-robotFile-dq-0-91pts.mat');
+
+% load('CoronalView2-dq-0.06-10000pts.mat')
 
 %%
 % First, load the mat file
@@ -44,7 +52,9 @@ telapsed = toc(tstart);
 s = seconds(telapsed);
 s.Format = 'hh:mm:ss'
 %% Create a video of this simulation and Histogram
-makeVisibilityFig(simulationID,'plotVisible',true);
+makeVisibilityFig(simulationID,'plotVisible',true,'plotCones',false, 'colorMap', [0 0 1; 0 1 0]);
+zaxis_dim = zlim();
+zlim([zaxis_dim(1), -20]);
 filename = 'testSim.csv';
 % getSimData(simulationID, filename);
 % % Save figure to folder

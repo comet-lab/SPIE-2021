@@ -1,4 +1,4 @@
- function [qListNormalized,qList,pList,aList,xList, TList, collLocs] = rrt_ndim(robot, qbounds, model, deltaQ, nPoints, init_config, checkFOV)
+ function [qListNormalized,qList,pList,aList,xList, TList, collLocs, TList_cam_endo] = rrt_ndim(robot, qbounds, model, deltaQ, nPoints, init_config, checkFOV)
 % RRT implements the basic Rapidly-Exploring Random Trees algorithm for a
 % generic continuum robot
 %
@@ -125,7 +125,7 @@ while true
     end
     
     % check if view of tip from camera is obstructed
-    Pcam = robot.endo.camT(1:3,4);     % pose of camera
+    Pcam = robot.endo.camT(1:3,4);     % position of camera
     ray = Ptip - Pcam;                  % cast ray from camera to the tip
     rayLength = norm(ray);               % get length of this ray
     uray = ray/rayLength;
@@ -135,11 +135,14 @@ while true
     
     % if any interesctions occur before the tip (dist is less than the ray
     % length of the tip) then the view is obstructed 
+    if ~flagged
+        continue
+    end
     if flagged
         dists(inter == 0) = inf;
         [val] = min(dists);
         
-        if val < rayLength
+        if val > rayLength
 %             fprintf('Camera view is obstructed\n');
             continue;
         end
@@ -192,6 +195,7 @@ while true
     aList(:,jj) = T(1:3,3,end);
     xList(:,jj) = T(1:3,1,end);
     TList(:,:,jj) = T(:,:,end);
+    TList_cam_endo(:,:,jj) = robot.endo.camT;
     
     jj = jj + 1;
     

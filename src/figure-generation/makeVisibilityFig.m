@@ -7,7 +7,10 @@ function makeVisibilityFig(simulationID, options)
 arguments
     simulationID (1,:) char
     options.plotVisible (1,1) logical = true
-    options.plotCones (1,1) logical = true
+    options.plotCones (1,1) logical = false
+    options.plotPoints (1,1) logical = false;
+    options.tissueName (1,:) char = 'tissue_cropped'
+    options.colorMap = [0 1 1; 0 1 0];
 end
 
 load([simulationID '.mat']);
@@ -21,7 +24,7 @@ line_no = find(strcmp(text{1}, modelID));
 path = fullfile('..', 'anatomical-models', modelID);
 
 % Read the Raw Meshes from file
-pathMe = fullfile(path, 'tissue_cropped.stl');
+pathMe = fullfile(path, [options.tissueName '.stl']);
 [vertices, faces, ~, ~] = stlRead(pathMe);
 numverts = size(vertices, 2);
 
@@ -37,16 +40,21 @@ else
 end
 
 if options.plotVisible
-    figure('Name', simulationID);
-    subplot(121);
-    stlPlot(meMesh.vertices * 1e3, meMesh.faces, 'Visibility', v);
-%     hold on, axis equal
-%     scatter3(collLocs(:,1)*1e3, collLocs(:,2)*1e3, collLocs(:,3)*1e3, 'filled', 'green');
-    
-    subplot(122);
-    stlPlot(meMesh.vertices * 1e3, meMesh.faces, 'Visibility', v);
-    hold on, axis equal
-    scatter3(pList(1,:)*1e3, pList(2,:)*1e3, pList(3,:)*1e3, 'filled', 'red');
+%     figure('Name', simulationID);
+    gca;
+    if options.plotPoints
+        subplot(121);
+        stlPlot(meMesh.vertices * 1e3, meMesh.faces, 'Visibility', v);
+    %     hold on, axis equal
+    %     scatter3(collLocs(:,1)*1e3, collLocs(:,2)*1e3, collLocs(:,3)*1e3, 'filled', 'green');
+
+        subplot(122);
+        stlPlot(meMesh.vertices * 1e3, meMesh.faces, 'Visibility', v);
+        hold on, axis equal
+        scatter3(pList(1,:)*1e3, pList(2,:)*1e3, pList(3,:)*1e3, 'filled', 'red');
+    else
+        stlPlot(meMesh.vertices * 1e3, meMesh.faces, 'Visibility', v, options.colorMap);
+    end
 else
     v = zeros(length(faces),1);
     stlPlot(meMesh.vertices * 1e3, meMesh.faces, 'Visibility', v);

@@ -35,6 +35,7 @@ else
     else
         % use input colormap for face colors
         colors = trueColors(seenMap+1, :);
+%         colors = trueColors(seenMap,:);
     end
     h = patch(object,'FaceVertexCData', colors, ...
         'FaceColor', 'flat', ...
