@@ -7,7 +7,7 @@ left_simID = 'CoronalView2-left-nowrist-dq-0.06-10000pts';
 
 reg_c = [1 0.5 0.45];
 vis_c = [47,19,16]/255; % dark purple
-vis_c = [89 248 255]/255
+vis_c = [89 248 255]/255;
 color_map = [reg_c; vis_c];
 
 %%
@@ -44,7 +44,7 @@ title('','FontSize',16,'FontName','CMU Serif')
 view(-50,20)
 curr_lims = zlim();
 title('')
-% zlim([curr_lims(1),-25])
+zlim([curr_lims(1),-20])
 axis off
 grid off
 

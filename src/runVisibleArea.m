@@ -52,7 +52,7 @@ telapsed = toc(tstart);
 s = seconds(telapsed);
 s.Format = 'hh:mm:ss'
 %% Create a video of this simulation and Histogram
-makeVisibilityFig(simulationID,'plotVisible',true,'plotCones',false, 'colorMap', [0 0 1; 0 1 0]);
+makeVisibilityFig(simulationID,'plotVisible',true,'plotCones',false);
 zaxis_dim = zlim();
 zlim([zaxis_dim(1), -20]);
 filename = 'testSim.csv';

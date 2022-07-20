@@ -10,7 +10,7 @@ arguments
     options.plotCones (1,1) logical = false
     options.plotPoints (1,1) logical = false;
     options.tissueName (1,:) char = 'tissue_cropped'
-    options.colorMap = [0 1 1; 0 1 0];
+    options.colorMap = [0 0 1; 0 1 0];
 end
 
 load([simulationID '.mat']);
