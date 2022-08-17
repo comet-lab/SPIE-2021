@@ -72,7 +72,7 @@ parfor jj = 1 : size(pList, 2)
         quivCamera(jj) = q1;
     end
     
-    jj
+    jj;
     %waitbar(jj/nPoints, hw, 'Calculating the visibility map. Please wait...');
 end
 %close(hw);

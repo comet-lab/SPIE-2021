@@ -1,6 +1,7 @@
 clear; clc; close all;
 
-simulationID = 'larynx1-dq-0.06-100pts';
+simulationID = 'larynx2_c2-dq-0.06-10000pts';
+LarynxModel = "L2";
 % 
 load([simulationID '.mat']);
 % fid = fopen(fullfile('..', 'anatomical-models', 'configurations.txt'));
@@ -24,8 +25,12 @@ load([simulationID '.mat']);
 % meMesh.vertices1 = vertices .*1e-3;
 % 
 % 
+addpath('kinematics', 'utils', 'figure-generation', 'path-planning', ...
+        'utils/stlTools/', 'utils/visibility/', 'utils/ray-casting/', ...
+        'utils/wrist_configs/', '../anatomical-models', 'simAnalyzer/');
+
 if exist('visibleMapTotal', 'var')
-    v = logical(visibleMapTotal);
+    v = logical(visibleMapTotalCamera);
 else
     v = zeros(length(faces),1);
 end

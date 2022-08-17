@@ -69,7 +69,7 @@ addpath('kinematics', 'utils', 'figure-generation', 'path-planning', ...
 % %% Remove Points
 % RemovePoints(simulationID);
 
-simulationID = 'larynx8b-nowrist-PointsRemoved-Laser_ang-90-dq-0.06-10000pts';
+simulationID = 'larynx1-dq-0.06-10000pts';
 
 %% Run Ray casting
 %calcVisibleArea(simulationID, 'mcrc', laserOffsetAngle);
