@@ -7,10 +7,23 @@ classdef Wrist < Robot
     %
     %   Latest revision: 07/21/2019
     properties
-        ID        % [m] tube inner diameter
-        OD        % [m] tube outer diameter
-        nCutouts  % [int] total number of cutouts
+       % ID        % [m] tube inner diameter
+       % OD        % [m] tube outer diameter
+       % n  % [int] total number of cutouts
         cutouts   % struct array - each struct contains the following fields:
+        
+        IID;                % [mm]  inner tube inner diameter
+        IOD;                % [mm]  inner tube outer diameter
+        OID;                % [mm]  outer tube inner diameter
+        OOD;                % [mm]  outer tube outer diameter
+        n  % [int] total number of cutouts
+        %n;                  % []    number of notches
+        %h;                  % [mm]  height of notches
+        g_inner             % [mm]  depth of inner tube notches
+        g_outer             % [mm]  depth of outer tube notches
+        u; 
+        
+        
         %           [u - spacing between i-1 and i-th notch]
         %           [h - height of i-th cutout             ]
         %           [w - width of i-th cutout              ]
@@ -23,50 +36,77 @@ classdef Wrist < Robot
         arcLength           % Arc length of the wrist links
         robotModel          % A model of the robot
         
-        ybar
+        ybar_inner
+        ybar_outer 
         theta_max
         deltal_max
     end
     
     methods
-        function self = Wrist(ID, OD, nCutouts, cutouts)
+        function self = Wrist(IID, IOD, OID, OOD, g_inner, g_outer, n, cutouts)
             % Invoke the constructor of the parent class
-            nLinks = nCutouts * 2 + 1;
+            nLinks = n * 2 + 1;
             self@Robot(nLinks);
             
             % Copy geometric design parameters in local attributes
-            self.ID = ID;
-            self.OD = OD;
-            self.nCutouts = nCutouts;
+            self.IID = IID;
+            self.IOD = IOD;
+            self.OID = OID;
+            self.OOD = OOD;
+            self.n = n;
             self.cutouts = cutouts;
             
+            self.g_inner = g_inner;
+            self.g_outer = g_outer;
+            
             % Pre-calculate some variables to make the forward kinematics run faster
-            ro = self.OD / 2; % outer radius of tube in [m];
-            ri = self.ID / 2; % inner radius of tube in [m];
+            ro_inner = self.IOD / 2; % outer radius of tube in [m];
+            ri_inner = self.IID / 2; % inner radius of tube in [m];
+            
+            ro_outer = self.OOD / 2;
+            ri_outer = self.OID / 2;
             
             h = self.cutouts.h; % Height of the cutouts in [m]
-            w = self.cutouts.w; % Cut depth in [m]. See Figure 4 again.
-            d = w-ro; % intermediate variable. Depth of cut as measured from y = 0. See Figure 4.
+            %w = self.cutouts.w; % Cut depth in [m]. See Figure 4 again.
+            %d_inner = w - ro_inner; % intermediate variable. Depth of cut as measured from y = 0. See Figure 4.
+            d_inner = g_inner - ro_inner;
+            %d_outer = w - ro_outer;
+            d_outer = g_outer - ro_outer;
             
-            
-            for ii = 1 : nCutouts
-                phio = 2 * acos(d(ii) / ro);
-                phii = 2 * acos(d(ii) / ri);
+            for ii = 1 : n
                 
-                ybaro = (4 * ro * (sin(0.5 * phio)) ^ 3)/ (3 * (phio - sin(phio)));
-                ybari = (4 * ri * (sin(0.5 * phii)) ^ 3)/ (3 * (phii - sin(phii)));
+                phio_inner = 2 * acos(d_inner(ii) / ro_inner);
+                phii_inner = 2 * acos(d_inner(ii) / ri_inner);
                 
-                Ao = ( (ro ^ 2) * ( phio - sin(phio))) / 2;
-                Ai = ( (ri ^ 2) * ( phii - sin(phii))) / 2;
+                phio_outer  = 2 * acos(d_outer(ii) / ro_outer);
+                phii_outer  = 2 * acos(d_outer(ii) / ri_outer);               
                 
-                self.ybar(ii) = (ybaro * Ao - ybari * Ai) / (Ao - Ai);
+                ybaro_inner = (4 * ro_inner * (sin(0.5 * phio_inner)) ^ 3)/ (3 * (phio_inner - sin(phio_inner)));
+                ybari_inner = (4 * ri_inner * (sin(0.5 * phii_inner)) ^ 3)/ (3 * (phii_inner - sin(phii_inner)));
+                
+                
+                ybaro_outer = (4 * ro_outer * (sin(0.5 * phio_outer)) ^ 3)/ (3 * (phio_outer - sin(phio_outer)));
+                ybari_outer = (4 * ri_outer * (sin(0.5 * phii_outer)) ^ 3)/ (3 * (phii_outer - sin(phii_outer)));
+                
+                
+                Ao_inner = ( (ro_inner ^ 2) * ( phio_inner - sin(phio_inner))) / 2;
+                Ai_inner = ( (ri_inner ^ 2) * ( phii_inner - sin(phii_inner))) / 2;
+                
+                Ao_outer = ( (ro_outer ^ 2) * ( phio_outer - sin(phio_outer))) / 2;
+                Ai_outer = ( (ri_outer ^ 2) * ( phii_outer - sin(phii_outer))) / 2;
+                
+                
+                self.ybar_inner(ii) = (ybaro_inner * Ao_inner - ybari_inner * Ai_inner) / (Ao_inner - Ai_inner);
+                self.ybar_outer(ii) = (ybaro_outer * Ao_outer - ybari_outer * Ai_outer) / (Ao_outer - Ai_outer);
                 
                 % Calculate the maximum bending for this cutout
-                self.theta_max(ii) = h(ii) / (ro + self.ybar(ii));
+                %self.theta_max(ii) = h(ii) / (ro + self.ybar(ii));
+                self.theta_max(ii) = h(ii) / (ro_outer + self.ybar_outer(ii));
                 
                 % Calculate the tendon displacement for this cutout when
                 % this hits the hard stop.
-                self.deltal_max(ii) = h(ii) - (ro - ri) * self.theta_max(ii);
+               
+                self.deltal_max(ii) = h(ii) - (ro_outer - ri_outer) * self.theta_max(ii);
             end
         end
         
@@ -78,8 +118,8 @@ classdef Wrist < Robot
             % longer articulable.
             
             % First assign each cutout 1/n of the total displacement
-            cutoutDispl = totalDisplacement ./ self.nCutouts .* ...
-                ones(1, self.nCutouts);
+            cutoutDispl = totalDisplacement ./ self.n .* ...
+                ones(1, self.n);
             
             overHardStop = cutoutDispl > self.deltal_max;
             
@@ -118,7 +158,7 @@ classdef Wrist < Robot
             cutoutDispl = self.calcdispl(tendonDisplacement);
             
             % == Read the geometric design parameters
-            ri = self.ID / 2; % inner radius of tube in [m];
+            ri_outer = self.OID/ 2; % inner radius of tube in [m];
             
             h = self.cutouts.h; % Height of the cutouts in [m]
             
@@ -182,8 +222,16 @@ classdef Wrist < Robot
                 else
                     % For a curved section (i.e. a notch), calculate the
                     % arc parameters using the relations in [Swaney2017]
-                    kjj = (cutoutDispl(kk)) / (h(kk) * (ri + self.ybar(kk)) - cutoutDispl(kk) * self.ybar(kk));
-                    sjj = h(kk) / ( 1 + self.ybar(kk) * kjj); % original kappa
+                    disp(kk);
+                    disp(cutoutDispl(kk));
+                    disp(h(kk));
+                    disp(ri_outer);
+                    disp(self.ybar_outer(kk));
+                    disp(self.ybar_outer(kk));
+                    
+                    kjj = (cutoutDispl(kk)) / (h(kk) * (ri_outer + self.ybar_outer(kk)) - cutoutDispl(kk) * self.ybar_outer(kk));
+                    
+                    sjj = h(kk) / ( 1 + self.ybar_outer(kk) * kjj); % original kappa
                     thetajj = 0;
                     if length_at_section < abs(t_adv) && t_adv < 0
                         if length_at_section + sjj >= abs(t_adv)
@@ -228,7 +276,7 @@ classdef Wrist < Robot
             
             % Read the geometric design parameters
             ri = self.ID / 2; % inner radius of tube in [m];
-            h = self.cutouts.h; % Height of the cutouts in [m]
+           % h = self.cutouts.h; % Height of the cutouts in [m]
             
             % Map joint variables to arc parameters
             c = self.jointvar2arcparams(q);
@@ -394,7 +442,7 @@ classdef Wrist < Robot
             
             %robotBackbone = applytransform(robotBackbone, baseTransform);
             
-            radiusVec = self.OD/2*ones(1,size(robotBackbone,2));
+            radiusVec = self.OOD/2*ones(1,size(robotBackbone,2));
             [X,Y,Z] = gencyl(robotBackbone, radiusVec, 2, 10);
             
             robotModel.backbone = robotBackbone;

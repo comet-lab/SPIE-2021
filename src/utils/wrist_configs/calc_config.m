@@ -11,8 +11,6 @@ function [h,u] = calc_config(L, R, n, ro, ri, w)
 %   ri [mm] = inner radius of tube
 %   w [mm] = depth of notches
 %
-%   Author: Jesse F. d'Almeida <jfdalmeida@wpi.edu>
-%
 %   Last Revision: 5/27/2020
 
 %% define optional variables
@@ -45,6 +43,12 @@ ybar = (ybar_o*Ao - ybar_i*Ai)/(Ao-Ai);   % neutral bending plane
 
 h = L*(ro + ybar)/(R * n);   % calc notch height
 u = (L - L * (1/R) * (ro + ybar))/n; % calc uncut height
+
+
+
+
+
+
 
 % h = thetaMax * (ro+ybar) / n;
 % u = L/n - h;

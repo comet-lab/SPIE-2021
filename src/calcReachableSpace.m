@@ -1,4 +1,4 @@
-function calcReachableSpace(u,h,w,ID,OD,modelID, nPoints, dq, useWrist, simulationID)
+function calcReachableSpace(u, h, g_inner, g_outer, IID, IOD, OID, OOD, modelID, nPoints, dq, useWrist, simulationID)
 %% This function estimates the reachable workspace for a given endoscope configuration
 % Inputs:
 %         u: length of uncut sections   [m]
@@ -6,7 +6,7 @@ function calcReachableSpace(u,h,w,ID,OD,modelID, nPoints, dq, useWrist, simulati
 %         w: width  of the cut sections [m]
 %         ID: endoscope inner diameter  [m]
 %         OD: endoscope outer diameter  [m]
-%
+
 %         modelID:      identifier of the ear model
 %         nPoints:      number of points to be sampled by RRT
 %         dq:           size of deltaQ, step size of rrt
@@ -27,17 +27,28 @@ results.nPoints = nPoints;
 results.dq = dq;
 results.simID = simulationID;
 
+self.IID = IID;
+self.IOD = IOD;
+self.OID = OID;
+self.OOD = OOD;
+
+self.g_inner = g_inner;
+self.g_outer = g_outer; 
+
+
 %% Part 1. Run RRT
 % fprintf('Running RRT...\n')
 
 % Define the endoscope model
 n = length(u); % number of notches
-cutouts.w = w;
+%cutouts.w = w;
+cutouts.g_inner = g_inner;
+cutouts.g_outer = g_outer;
 cutouts.u = u; % converting to meters
 cutouts.h = h; % converting to meters
 cutouts.alpha = zeros(1,n);
 
-robot = EndoWrist(ID, OD, n, cutouts);
+robot = EndoWrist(IID, IOD, OID, OOD, g_inner, g_outer, n, cutouts);
 
 % Read the configuration file to extract information about the meshes
 fid = fopen(fullfile('..', 'anatomical-models', 'configurations.txt'));
@@ -103,7 +114,7 @@ else
                maxKappa  maxTheta  maxDz 0  maxRot maxAdv];
 end
 
-robot = EndoWrist(ID, OD, n, cutouts);
+robot = EndoWrist(IID, IOD, OID, OOD, g_inner, g_outer, n, cutouts);
 
 init_config(6) = minAdv;
 

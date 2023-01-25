@@ -18,14 +18,15 @@ classdef EndoWrist < handle
         % Transformations
         transformations
         pose
+     
     end
     
     methods
-        function self = EndoWrist(ID, OD, nCutouts, cutouts)
+        function self = EndoWrist(IID, IOD, OID, OOD, g_inner, g_outer, n, cutouts)
             %ENDOWRIST Construct an instance of this class
             %   Creates instances of endoscope and wrist given config
             self.endo = Endoscope();
-            self.wrist = Wrist(ID, OD, nCutouts, cutouts);
+            self.wrist = Wrist(IID, IOD, OID, OOD, g_inner, g_outer, n, cutouts);
         end
         
         function fwkine(self, q, baseTransform)
