@@ -14,7 +14,7 @@ addpath('kinematics', 'utils', 'figure-generation', 'path-planning', ...
         'utils/wrist_configs/', '../anatomical-models', 'simAnalyzer/');
     
 %% Simulation parameters
-nPoints = 50; % number of configurations sampled by RRT
+nPoints = 10000; % number of configurations sampled by RRT
 dq = 0.06;
 useWrist = true;
 laserOffsetAngle = 0;
@@ -95,4 +95,4 @@ getSimData(simulationID, filename);
 % Save figure to folder
 savefig(['figures/' simulationID '.fig']);
 
-animateResults(simulationID);
+%animateResults(simulationID);
