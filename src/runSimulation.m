@@ -95,4 +95,4 @@ getSimData(simulationID, filename);
 % Save figure to folder
 savefig(['figures/' simulationID '.fig']);
 
-%animateResults(simulationID);
+animateResults(simulationID);
