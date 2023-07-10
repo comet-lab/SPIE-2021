@@ -3,10 +3,10 @@ function L = calc_L(view_ang, R, d_cam, z, h)
 % - asssumes that the notched joint is to the left of the camera
 %
 % view_ang [rad] = angle of camera's field of view (phi in drawings)
-% R [mm] = radius of the wrist's bending motion
-% d_cam [mm] = x-dir distance from the center of the wrist to camera 
-% z [mm] = distance from end of endoscope to bottom of the 1st notch
-% h [mm] = distance from end of endoscope to camera's optical center
+% R [m] = radius of the wrist's bending motion
+% d_cam [m] = x-dir distance from the center of the wrist to camera 
+% z [m] = distance from end of endoscope to bottom of the 1st notch
+% h [m] = distance from end of endoscope to camera's optical center
 %
 % Author: I. Chan <iachan@wpi.edu>
 % 

@@ -3,40 +3,41 @@ function [h,u] = calc_config(L, R, n, ro, ri, w)
 %  [h,u] = calc_config(L, R, n, ro, ri) returns h and u for a tube 
 %  [h,u] = calc_config(L, R, n) returns h and u for a tube, assuming a
 %  default tube
-%   L [mm] = steerable section length (max arc length)
-%   R [mm] = max radius of curvature
+%   L [m] = steerable section length (max arc length)
+%   R [m] = max radius of curvature
 %   n = number of notches
 %   *optional* 
-%   ro [mm] = outer radius of tube
-%   ri [mm] = inner radius of tube
-%   w [mm] = depth of notches
+%   ro [m] = outer radius of tube
+%   ri [m] = inner radius of tube
+%   w [m] = depth of notches
 %
 %   Author: Jesse F. d'Almeida <jfdalmeida@wpi.edu>
+%           Alex Chiluisa <ajchiluisa@wpi.edu>
 %
-%   Last Revision: 5/27/2020
+%   Last Revision: 7/10/2023
 
 %% define optional variables
 
 if ~exist('ro', 'var')
     % set default outer radius
-    ro = 1.6/2;
+    ro = (1.10e-3)/2;
 end
 if ~exist('ri', 'var')
     % set default inner radius
-    ri = 1.4/2;
+    ri = (0.90e-3)/2;
 end
 if ~exist('w', 'var')
     % set default notch depth percentage
-    w = 1.4; 
+    w = 0.94e-3; 
 end
 %% calculate ybar
 phi_o = 2*acos((w-ro)/ro);
 phi_i = 2*acos((w-ro)/ri);
 
-Ao = (ro^2*(phi_o - sin(phi_o)))/2;
-Ai = (ri^2*(phi_i - sin(phi_i)))/2;
+Ao = 0.5*ro^2*(phi_o - sin(phi_o));
+Ai = 0.5*ri^2*(phi_i - sin(phi_i));
 
-ybar_o = (4*ro*sin(phi_o/2)^3)/(3*(phi_o - sin(phi_o)));
+ybar_o = (4*ro*(sin(0.5*phi_o)^3))/(3*(phi_o - sin(phi_o)));
 ybar_i = (4*ri*sin(phi_i/2)^3)/(3*(phi_i - sin(phi_i)));
 
 ybar = (ybar_o*Ao - ybar_i*Ai)/(Ao-Ai);   % neutral bending plane
