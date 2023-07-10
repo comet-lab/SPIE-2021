@@ -38,9 +38,9 @@ Ao = 0.5*ro^2*(phi_o - sin(phi_o));
 Ai = 0.5*ri^2*(phi_i - sin(phi_i));
 
 ybar_o = (4*ro*(sin(0.5*phi_o)^3))/(3*(phi_o - sin(phi_o)));
-ybar_i = (4*ri*sin(phi_i/2)^3)/(3*(phi_i - sin(phi_i)));
+ybar_i = (4*ri*(sin(0.5*phi_i)^3))/(3*(phi_i - sin(phi_i)));
 
-ybar = (ybar_o*Ao - ybar_i*Ai)/(Ao-Ai);   % neutral bending plane
+ybar = (ybar_o*Ao - ybar_i*Ai)/(Ao-Ai); % neutral bending plane
 
 %% calculate configuration
 

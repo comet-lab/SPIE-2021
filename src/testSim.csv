@@ -1,0 +1,2 @@
+ModelID,nPoints,DeltaQ,RunTime(min),VisibleFaces,PercTotalFaces,VisibleArea(mm^2),PercTotalArea,SimulationID
+larynx1,10,0.06,0.08,256,0.56,31.64,0.75,larynx1-dq-0.06-10pts

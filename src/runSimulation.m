@@ -8,7 +8,7 @@
 %           I. Chan <iachan@wpi.edu>
 %  
 % Last Version: 5/29/2020
-close all, clear, clc
+clear, clc, close all;
 addpath('kinematics', 'utils', 'figure-generation', 'path-planning', ...
         'utils/stlTools/', 'utils/visibility/', 'utils/ray-casting/', ...
         'utils/wrist_configs/', '../anatomical-models', 'simAnalyzer/');
@@ -36,29 +36,26 @@ viewang = deg2rad(85); % FOV Endoscope camera [deg]
 d_cam = 2.5e-3; % Distance from the center of the endoscope to the center of the camera [m]
 z_cam = 0; %define z cam and h cam
 h_cam = 0;
+
 %% Wrist geometry definition
-%  The variable naming used in this section is consistent with (Chiluisa et al. ISMR 2020)
-n = 10; % number of cutouts
-w = 0.935e-3 * ones(1,n); % notch width   [m]
-OD = 1.10e-3; % Wrist outer diameter [m]
-ID = 0.90e-3; % Wrist inner diameter [m]
-ro = OD/2;  % Wrist outer radius [m]
-ri = ID/2; % Wrist inner radius [m]
-R = 8.0e-3; % Bending radii [m]
-L = calc_L(viewang, R, d_cam, z_cam, h_cam); % Lenght of the steerable section [m]
-%L = 15 %[m];
-[singleH, singleU] = calc_config(L, R, n, ro, ri, w);
-
-%u = 0.000367766480556499;
-%h = 0.000187789074999056;
-u = singleU * ones(1,n); % notch spacing [m]
-h = singleH * ones(1,n); % notch height  [m]
-
 if useWrist
+    %  The variable naming used in this section is consistent with (Chiluisa et al. ISMR 2020)
+    n = 10; % number of cutouts
+    OD = 1.10e-3; % Wrist outer diameter [m]
+    ID = 0.90e-3; % Wrist inner diameter [m]
+    w = 0.85*OD; % notch width 85% of the OD [m]
+    ro = OD/2;  % Wrist outer radius [m]
+    ri = ID/2; % Wrist inner radius [m]
+    R = 8.0e-3; % Bending radii [m]
+    L = calc_L(viewang, R, d_cam, z_cam, h_cam); % Lenght of the steerable section [m]
+    L = L*1000;
+    L = ceil(L); % [m], Round towards plus infinity
+    L = L/1000; %[m]
+    [singleH, singleU] = calc_config(L, R, n, ro, ri, w);
     % wrist configuration
     u = singleU * ones(1,n); % notch spacing [m]
     h = singleH * ones(1,n); % notch height  [m]
-    w = w * ones(1,n);          % notch width   [m]
+    w = w * ones(1,n); % notch width [m]
 else
     fprintf("Wrist is turned off!\n")
     % laser configuration
