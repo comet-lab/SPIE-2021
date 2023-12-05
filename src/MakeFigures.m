@@ -1,6 +1,7 @@
-clear; clc; close all;
+%clear; clc; close all;
 
-simulationID = 'larynx1-dq-0.06-100pts';
+LarynxModel = "L2";
+simulationID = 'larynx2_c2-dq-0.06-10000pts';
 % 
 load([simulationID '.mat']);
 % fid = fopen(fullfile('..', 'anatomical-models', 'configurations.txt'));
@@ -25,7 +26,7 @@ load([simulationID '.mat']);
 % 
 % 
 if exist('visibleMapTotal', 'var')
-    v = logical(visibleMapTotal);
+    v = logical(visibleMapTotalCamera);
 else
     v = zeros(length(faces),1);
 end
