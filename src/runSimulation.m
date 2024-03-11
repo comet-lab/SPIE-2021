@@ -14,13 +14,13 @@ addpath('kinematics', 'utils', 'figure-generation', 'path-planning', ...
         'utils/wrist_configs/', '../anatomical-models', 'simAnalyzer/');
     
 %% Simulation parameters
-nPoints = 10; % number of configurations sampled by RRT
+nPoints = 10000; % number of configurations sampled by RRT
 dq = 0.06;
 useWrist = true;
 laserOffsetAngle = 0;
 
 %% Anatomical model definition
-modelID = 'larynx1'; % ID of the anatomical model (see the `anatomical-models' folder)
+modelID = 'larynx8b'; % ID of the anatomical model (see the `anatomical-models' folder)
 
 otherinfo = [];
 if ~useWrist
