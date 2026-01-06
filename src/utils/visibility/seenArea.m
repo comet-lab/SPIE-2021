@@ -4,7 +4,7 @@ seenFaces = stlModel.faces(logical(seenMap),:);
 
 totalArea = 0;
 
-    for ii = 1 : size(seenFaces)
+    for ii = 1 : size(seenFaces,1)
         p1idx = seenFaces(ii, 1);
         p2idx = seenFaces(ii, 2);
         p3idx = seenFaces(ii, 3);

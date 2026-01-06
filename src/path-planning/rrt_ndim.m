@@ -43,7 +43,7 @@ norm_init_config = (init_config.' - minBounds) ./ (maxBounds - minBounds);
 
 % take care of any anomalies
 check_nan = isnan(norm_init_config);
-for i = 1:size(norm_init_config)
+for i = 1:size(norm_init_config,1)
     if check_nan(i) == 1 || abs(norm_init_config(i)) > 1
         norm_init_config(i) = 0;
     end
